@@ -2,6 +2,7 @@ package com.ednaldo.crud_clientes.controllers;
 
 import com.ednaldo.crud_clientes.dto.ClientDTO;
 import com.ednaldo.crud_clientes.services.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTO> insertClient(@RequestBody ClientDTO dto) {
+    public ResponseEntity<ClientDTO> insertClient(@Valid @RequestBody ClientDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.insertClient(dto));
     }
 
@@ -34,7 +35,7 @@ public class ClientController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @RequestBody ClientDTO dto) {
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @Valid @RequestBody ClientDTO dto) {
         return ResponseEntity.ok(clientService.updateClient(id, dto));
     }
 

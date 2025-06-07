@@ -3,7 +3,6 @@ package com.ednaldo.crud_clientes.controllers.handlers;
 
 import com.ednaldo.crud_clientes.dto.CustomError;
 import com.ednaldo.crud_clientes.dto.ValidationError;
-import com.ednaldo.crud_clientes.services.exceptions.DatabaseException;
 import com.ednaldo.crud_clientes.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -21,13 +20,6 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<CustomError> handlerResourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
-        CustomError customError = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(status).body(customError);
-    }
-
-    @ExceptionHandler(DatabaseException.class)
-    public ResponseEntity<CustomError> handlerDatabaseException(DatabaseException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
         CustomError customError = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(customError);
     }
